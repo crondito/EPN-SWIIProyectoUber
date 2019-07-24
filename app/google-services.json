@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "296130520356",
+    "firebase_url": "https://swii-proyectouber.firebaseio.com",
+    "project_id": "swii-proyectouber",
+    "storage_bucket": "swii-proyectouber.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296130520356:android:63d37ec72a77bf41",
+        "android_client_info": {
+          "package_name": "com.example.swii_proyectouber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296130520356-q6r3qik007ao1mm3jc8j2528lg0kidic.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.swii_proyectouber",
+            "certificate_hash": "5e2e4a04ad1a480a84d27b0c93fc9db9798929d3"
+          }
+        },
+        {
+          "client_id": "296130520356-1m0ei134nu69haostbd1j7ujdk41r611.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYOG2hRzfh5I6i91Iot-2GteF-jaVWq_Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296130520356-1m0ei134nu69haostbd1j7ujdk41r611.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
