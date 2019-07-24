@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DriverLoginActivity"
+    tools:context=".CustomerLoginActivity"
     android:orientation="vertical"
     android:paddingLeft="20dp"
     android:paddingRight="20dp">
@@ -31,7 +31,7 @@
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login conductor"
+        android:text="Login Usuario"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"/>
 
@@ -39,7 +39,7 @@
         android:id="@+id/registration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registrar nuevo conductor"
+        android:text="Registrar Nuevo Usuario"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"/>
 
