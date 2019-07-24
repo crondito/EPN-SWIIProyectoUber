@@ -4,25 +4,87 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingLeft="20dp"
-    android:paddingRight="20dp">
+    android:paddingRight="20dp"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/uberlogo"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:src="@drawable/uberlogo"
+        android:paddingTop="40dp"
+        android:paddingBottom="20dp"/>
+
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/indigo_daisy"
+        android:text="Login"
+        android:textAlignment="center"
+        android:textSize="50sp" />
 
     <Button
         android:id="@+id/driver"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Conductor"
         android:paddingTop="20dp"
-        android:paddingBottom="20dp"/>
+        android:paddingBottom="20dp"
+        android:text="Conductor" />
 
     <Button
         android:id="@+id/customer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cliente"
         android:paddingTop="20dp"
-        android:paddingBottom="20dp" />
+        android:paddingBottom="20dp"
+        android:text="Cliente" />
+
+    <EditText
+        android:id="@+id/editText5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/tv_registro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/indigo_daisy"
+        android:text="Registro"
+        android:textAlignment="center"
+        android:textSize="50sp" />
+
+    <Button
+        android:id="@+id/driver2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="Conductor" />
+
+    <Button
+        android:id="@+id/customer2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="Cliente" />
 
 </LinearLayout>
