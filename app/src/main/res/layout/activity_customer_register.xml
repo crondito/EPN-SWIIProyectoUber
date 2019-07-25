@@ -4,26 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CustomerLoginActivity"
+    tools:context=".DriverLoginActivity"
     android:orientation="vertical"
     android:paddingLeft="20dp"
     android:paddingRight="20dp">
 
     <TextView
-        android:id="@+id/tv_login3"
+        android:id="@+id/tv_login2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:fontFamily="@font/indigo_daisy"
-        android:text="Login Cliente"
+        android:text="Registro Cliente"
         android:textAlignment="center"
         android:textSize="50sp" />
+
+    <EditText
+        android:id="@+id/nombreCompleto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="nombre completo"
+        android:inputType="text"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp" />
 
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="email"
+        android:hint="e-mail"
         android:inputType="textWebEmailAddress"
         android:paddingTop="20dp"
         android:paddingBottom="20dp" />
@@ -37,12 +46,21 @@
         android:paddingTop="20dp"
         android:paddingBottom="20dp"/>
 
-    <Button
-        android:id="@+id/login"
+    <EditText
+        android:id="@+id/telefono"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login Usuario"
+        android:hint="teléfono"
+        android:inputType="phone"
         android:paddingTop="20dp"
-        android:paddingBottom="20dp"/>
+        android:paddingBottom="20dp" />
+
+    <Button
+        android:id="@+id/registration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="Registrar nuevo cliente" />
 
 </LinearLayout>

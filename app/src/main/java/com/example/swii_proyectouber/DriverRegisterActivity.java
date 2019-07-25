@@ -18,18 +18,19 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class DriverLoginActivity extends AppCompatActivity {
+public class DriverRegisterActivity extends AppCompatActivity {
 
-    private EditText mEmail, mPassword;
-    private Button mLogin;
+    private EditText mnombreCompleto, mEmail, mPassword, mcedula, mtelefono;
+    private Button mRegistration;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_driver_login);
+        setContentView(R.layout.activity_driver_register);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -38,7 +39,7 @@ public class DriverLoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null){
-                    Intent intent = new Intent(DriverLoginActivity.this, DriverMapActivity.class);
+                    Intent intent = new Intent(DriverRegisterActivity.this, DriverMapActivity.class);
                     startActivity(intent);
                     finish();
                     return;
@@ -46,28 +47,37 @@ public class DriverLoginActivity extends AppCompatActivity {
             }
         };
 
+        mnombreCompleto = (EditText) findViewById(R.id.nombreCompleto);
         mEmail = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
+        mcedula = (EditText) findViewById(R.id.cedula);
+        mtelefono = (EditText) findViewById(R.id.telefono);
 
-        mLogin = (Button) findViewById(R.id.login);
+        mRegistration = (Button) findViewById(R.id.registration);
 
-        mLogin.setOnClickListener(new View.OnClickListener() {
+        mRegistration.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view) {
+            public void onClick(View v){
+                final String nombreCompleto = mnombreCompleto.getText().toString();
                 final String email = mEmail.getText().toString();
                 final String password = mPassword.getText().toString();
-                mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(DriverLoginActivity.this, new OnCompleteListener<AuthResult>() {
+                final String cedula = mcedula.getText().toString();
+                final String telefono = mtelefono.getText().toString();
+                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(DriverRegisterActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(!task.isSuccessful()){
-                            Toast.makeText(DriverLoginActivity.this, "Error al intentar hacer Login", Toast.LENGTH_LONG).show();
+                            Toast.makeText(DriverRegisterActivity.this, "Error al registrarse", Toast.LENGTH_SHORT).show();
+                        } else {
+                            String user_id = mAuth.getCurrentUser().getUid();
+                            DatabaseReference current_user_db = FirebaseDatabase.getInstance().getReference().child("Users").child("Drivers").child(user_id);
+                            current_user_db.setValue(true);
                         }
                     }
                 });
+
             }
         });
-
-
     }
 
     @Override
@@ -81,6 +91,5 @@ public class DriverLoginActivity extends AppCompatActivity {
         super.onStop();
         mAuth.removeAuthStateListener(firebaseAuthListener);
     }
-
 
 }
