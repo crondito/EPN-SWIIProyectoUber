@@ -54,16 +54,24 @@ public class CustomerLoginActivity extends AppCompatActivity {
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 final String email = mEmail.getText().toString();
                 final String password = mPassword.getText().toString();
-                mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(CustomerLoginActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(!task.isSuccessful()){
-                            Toast.makeText(CustomerLoginActivity.this, "Error al intentar hacer Login", Toast.LENGTH_LONG).show();
+
+                if (email.isEmpty()) {
+                    Toast.makeText(CustomerLoginActivity.this, "Campo email vacío", Toast.LENGTH_LONG).show();
+                } else if (password.isEmpty()) {
+                    Toast.makeText(CustomerLoginActivity.this, "Campo password vacío", Toast.LENGTH_LONG).show();
+                } else {
+                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(CustomerLoginActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (!task.isSuccessful()) {
+                                Toast.makeText(CustomerLoginActivity.this, "Error al intentar hacer Login", Toast.LENGTH_LONG).show();
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
     }

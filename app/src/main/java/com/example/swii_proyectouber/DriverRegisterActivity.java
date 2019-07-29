@@ -18,6 +18,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.sql.Driver;
+
 public class DriverRegisterActivity extends AppCompatActivity {
 
     private EditText mnombreCompleto, mEmail, mPassword, mcedula, mtelefono;
@@ -38,7 +40,7 @@ public class DriverRegisterActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null){
+                if (user != null) {
                     Intent intent = new Intent(DriverRegisterActivity.this, DriverMapActivity.class);
                     startActivity(intent);
                     finish();
@@ -55,27 +57,48 @@ public class DriverRegisterActivity extends AppCompatActivity {
 
         mRegistration = (Button) findViewById(R.id.registration);
 
-        mRegistration.setOnClickListener(new View.OnClickListener(){
+        mRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 final String nombreCompleto = mnombreCompleto.getText().toString();
                 final String email = mEmail.getText().toString();
                 final String password = mPassword.getText().toString();
                 final String cedula = mcedula.getText().toString();
                 final String telefono = mtelefono.getText().toString();
-                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(DriverRegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(!task.isSuccessful()){
-                            Toast.makeText(DriverRegisterActivity.this, "Error al registrarse", Toast.LENGTH_SHORT).show();
-                        } else {
-                            String user_id = mAuth.getCurrentUser().getUid();
-                            DatabaseReference current_user_db = FirebaseDatabase.getInstance().getReference().child("Users").child("Drivers").child(user_id);
-                            current_user_db.setValue(true);
-                        }
-                    }
-                });
 
+
+                if (nombreCompleto.isEmpty()) {
+                    Toast.makeText(DriverRegisterActivity.this, "Campo nombre vacío", Toast.LENGTH_LONG).show();
+                } else if (email.isEmpty()) {
+                    Toast.makeText(DriverRegisterActivity.this, "Campo email vacío", Toast.LENGTH_LONG).show();
+                } else if (password.isEmpty()) {
+                    Toast.makeText(DriverRegisterActivity.this, "Campo password vacío", Toast.LENGTH_LONG).show();
+                } else if (cedula.isEmpty()) {
+                    Toast.makeText(DriverRegisterActivity.this, "Campo cédula vacío", Toast.LENGTH_LONG).show();
+                } else if (telefono.isEmpty()) {
+                    Toast.makeText(DriverRegisterActivity.this, "Campo teléfono vacío", Toast.LENGTH_LONG).show();
+                } else if (cedula.length() != 10) {
+                    Toast.makeText(DriverRegisterActivity.this, "Cédula no valida", Toast.LENGTH_LONG).show();
+                } else {
+                    Boolean validacion = valida(cedula);
+                    if (!validacion) {
+                        Toast.makeText(DriverRegisterActivity.this, "Cédula no valida", Toast.LENGTH_LONG).show();
+                    } else {
+                        //Conexión a la base de datos para registrarse
+                        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(DriverRegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (!task.isSuccessful()) {
+                                    Toast.makeText(DriverRegisterActivity.this, "Error al registrarse", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    String user_id = mAuth.getCurrentUser().getUid();
+                                    DatabaseReference current_user_db = FirebaseDatabase.getInstance().getReference().child("Users").child("Drivers").child(user_id);
+                                    current_user_db.setValue(true);
+                                }
+                            }
+                        });
+                    }
+                }
             }
         });
     }
@@ -87,9 +110,46 @@ public class DriverRegisterActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop(){
+    protected void onStop() {
         super.onStop();
         mAuth.removeAuthStateListener(firebaseAuthListener);
     }
 
+    public static boolean valida(String x) {
+        int suma = 0;
+        if (x.length() != 10) {
+            return false;
+        } else {
+            int a[] = new int[x.length() / 2];
+            int b[] = new int[(x.length() / 2)];
+            int c = 0;
+            int d = 1;
+            for (int i = 0; i < x.length() / 2; i++) {
+                a[i] = Integer.parseInt(String.valueOf(x.charAt(c)));
+                c = c + 2;
+                if (i < (x.length() / 2) - 1) {
+                    b[i] = Integer.parseInt(String.valueOf(x.charAt(d)));
+                    d = d + 2;
+                }
+            }
+
+            for (int i = 0; i < a.length; i++) {
+                a[i] = a[i] * 2;
+                if (a[i] > 9) {
+                    a[i] = a[i] - 9;
+                }
+                suma = suma + a[i] + b[i];
+            }
+            int aux = suma / 10;
+            int dec = (aux + 1) * 10;
+            if ((dec - suma) == Integer.parseInt(String.valueOf(x.charAt(x.length() - 1))))
+                return true;
+            else if (suma % 10 == 0 && x.charAt(x.length() - 1) == '0') {
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+    }
 }
